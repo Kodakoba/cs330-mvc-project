@@ -2,8 +2,8 @@
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-import authRoutes from "./routes/auth.js"
-import dashboardRoutes from "./routes/dashboard.js"
+import {authRouter} from "./routes/auth.js"
+import {dashboardRouter} from "./routes/dashboard.js"
 import { initPassport } from "./auth.js";
 import { PrismaClient } from '@prisma/client';
 import logger from 'morgan';
@@ -21,17 +21,35 @@ app.use(logger('combined'));
 
 initPassport();
 
+app.get('/users', async (req, res) => {
+    const users = await prisma.user.findMany();
+    res.json(users);
+});
+
 app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: true,
     resave: true
 }));
 
+app.post('/users', async (req, res) => {
+    const { email, name } = req.body;
+    const user = await prisma.user.create({
+        data: { email, name },
+    });
+    res.json(user);
+});
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', authRoutes);
-app.use('/', dashboardRoutes);
+app.use('/', authRouter);
+app.use('/', dashboardRouter);
+
+app.get("*", function (req, res) {
+    res.render("views/error.pug");
+});
 
 const server = http.createServer(app);
 

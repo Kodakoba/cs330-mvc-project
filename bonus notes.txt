@@ -1,0 +1,6 @@
+some fun artifacts!
+>video has blue gamma broken cause OBS used a colorspace that isn't supported by ANYTHING so you get wonderful inverted colors (but only sometimes)
+>the code does work, but the default page must be accessed through localhost:8080/login, as auto-redirecting to this page will ALWAYS DO IT FOR SOME REASON.
+>there's bugs. a lot of them. don't look too closely or you'll find bugs all over (like the mobile UI schema we don't talk about.)
+>this taught me a lot about how webpages work!! if i had a do-over i'd use laravel instead of pug as my webpage framework, and i'd properly connect prisma to NAVIDROME's db.
+-> sub fact, this isn't possible how i did it thanks to navidrome using a very weird flavor of sql that i can't seem to find.

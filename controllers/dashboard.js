@@ -1,5 +1,6 @@
-module.exports = {
+
+export default {
     dashboardView: (req, res) => {
-        res.render('dashboard', { name: req.user.name });
+        res.render('dashboard', { name: req.params.name });
     }
 }
